@@ -5,7 +5,6 @@ export default function Home() {
   return (
     <>
     <UserButton />
-    <p>Home unprotected</p>
     </>
   );
 }
