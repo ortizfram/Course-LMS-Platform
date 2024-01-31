@@ -1,5 +1,7 @@
+import { IconBadge } from "@/components/icon-badge";
 import { db } from "@/lib/db"
 import { auth } from "@clerk/nextjs"
+import { LayoutDashboard } from "lucide-react";
 import { redirect } from "next/navigation";
 
 const CourseIdPage = async ({
@@ -7,7 +9,7 @@ const CourseIdPage = async ({
 }: {
     params: { courseId: string }
 }) => {
-    const {userId} = auth();
+    const { userId } = auth();
 
     if (!userId) {
         return redirect("/")
@@ -15,7 +17,7 @@ const CourseIdPage = async ({
 
     const course = await db.course.findUnique({
         where: {
-            id: params.courseId 
+            id: params.courseId
         }
     });
 
@@ -38,7 +40,7 @@ const CourseIdPage = async ({
     const completionText = `(${completedFields}/${totalFields})`
 
 
-    return ( 
+    return (
         <div className="p-6">
             <div className="flex items-center justify-between">
                 <div className="flex flex-col gap-y-2">
@@ -50,8 +52,14 @@ const CourseIdPage = async ({
                     </span>
                 </div>
             </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
+                <div className="flex items-center gap-x-2">
+                    <IconBadge icon={LayoutDashboard} />
+                    <h2 className="text-xl">Customize your course</h2>
+                </div>
+            </div>
         </div>
-     );
+    );
 }
- 
+
 export default CourseIdPage;
